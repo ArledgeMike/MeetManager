@@ -181,16 +181,9 @@ end
 def outputSchedule
  puts "Name This file \n"
  fileName = gets.strip.delete(' ');
- outString = @taskArray.to_s
-
-print outString
-outFile = File.new("schedule.txt", "w")
-outFile.write(outString);
+outFile = File.new("#{fileName}.txt", "w")
+ outString = @taskArray.each { |info| outFile.puts "Task Owner: #{info.name} \n Task Information #{info.task} \n Due Date:  #{info.dueDate} \n\n\n"  }
 outFile.close
-
-
-
-
 end
 
 
