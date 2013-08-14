@@ -2,23 +2,27 @@ require 'MeetTask'
 
 class MeetManager
 
-attr_accessor :taskArray, :taskCount
+attr_accessor :taskArray
 
 def initialize	
+ # prompt user at the very start of program init
  puts "Welcome to the Meet Manager \n Type HELP to see a list of Commands \n"
  @taskArray = []
- @taskCount = 1;
- startDialogue
+ command = gets.strip.downcase.delete(' ')
+ #puts command
+ decide(command) 
 end
 
 def startDialogue
- puts "What can I do for you?"
+ # Reset Function should be at the end of every management function
+ puts "What can I do for you? \n Type HELP to see a list of Commands \n"
  command = gets.strip.downcase.delete(' ')
-#puts command
+ #puts command
  decide(command)
 end
 
 def decide(commandString)
+  # Case that controls all decision making from startDialogue
  command = commandString
  case 
   when command == "help"
@@ -28,39 +32,103 @@ def decide(commandString)
   addATask
   
   when command == "displayalltasks"
-  displayAllTasks
- 
+    totalTasks = @taskArray.length
+    if totalTasks == 0
+      puts "You need to add a task first"
+      startDialogue
+    else
+    displayAllTasks
+    end
+  
   when command == "inspectatask"
-  inspectATask
-
+    totalTasks = @taskArray.length
+    if totalTasks == 0
+      puts "You need to add a task first"
+      startDialogue
+    else
+    inspectATask
+    end
+  
   when command  == "changeataskowner"
-  changeATaskOwner
-
+    totalTasks = @taskArray.length
+    if totalTasks == 0
+      puts "You need to add a task first"
+      startDialogue
+    else
+    changeATaskOwner
+    end
+  
   when command == "changeataskduedate"
-  changeATaskDueDate
-
+    totalTasks = @taskArray.length
+    if totalTasks == 0
+      puts "You need to add a task first"
+      startDialogue
+    else
+    changeATaskDueDate
+    end
+  
   when command == "completeatask"
-  completeATask
-
+    totalTasks = @taskArray.length
+    if totalTasks == 0
+      puts "You need to add a task first"
+      startDialogue
+    else
+    completeATask
+    end
+  
   when command == "removeatask"
-  removeATask
-
+    totalTasks = @taskArray.length
+    if totalTasks == 0
+      puts "You need to add a task first"
+      startDialogue
+    else
+    removeATask
+    end
+  
   when command == "removealltasks"
-  removeAllTasks
-
+    totalTasks = @taskArray.length
+    if totalTasks == 0
+      puts "You need to add a task first"
+      startDialogue
+    else
+    removeAllTasks
+    end
+  
   when command == "addacomment"
-  addAComment
-
+    totalTasks = @taskArray.length
+    if totalTasks == 0
+      puts "You need to add a task first"
+      startDialogue
+    else
+    addAComment
+    end
+  
   when command == "outputschedule"
-  outputSchedule  
+    totalTasks = @taskArray.length
+    if totalTasks == 0
+      puts "You need to add a task first"
+      startDialogue
+    else
+    outputSchedule
+    end
+    
  else 
-  puts "That is not a command. You are just making things up. \n Type HELP if you don't know what you are doing."
- s startDialogue
+  puts "That is not a command. You are just making things up."
+  startDialogue
  end
 end
 
 def displayHelp
- puts "To add a task type -- Add A Task \n To display all tasks type -- Display All Tasks \n To get all the info for a task type -- Inspect A Task \n To change the owner of a task type -- Change A Task Owner \n To change a task due date type -- Change A Task Due Date \n To mark a task as complete type -- Complete A Task \n To remove a task from the list type -- Remove A Task \n To remove all of the tasks from the list type -- Remove All Tasks \n"
+ puts "To add a task type -- Add A Task \n 
+       To display all tasks type -- Display All Tasks \n
+       To get all the info for a task type -- Inspect A Task \n 
+       To change the owner of a task type -- Change A Task Owner \n
+       To change a task due date type -- Change A Task Due Date \n 
+       To mark a task as complete type -- Complete A Task \n
+       To remove a task from the list type -- Remove A Task \n
+       To remove all of the tasks from the list type -- Remove All Tasks \n
+       To add a comment to a task type -- Add A Commnet \n
+       To output the schedule to a file type -- Output Schedule"
  startDialogue
 end
 
@@ -73,7 +141,6 @@ def addATask
  due = gets.strip
  aTask = MeetTask.new(@taskCount,taskOwner, toDo, due)
  @taskArray.push(aTask)
- @taskCount = @taskCount +1
  startDialogue
 end
 
@@ -166,9 +233,7 @@ def addAComment
  end
   taskArrayIndex = taskNum - 1
   @taskArray[taskArrayIndex].comment
-  
   startDialogue
-
 end
 
 def removeAllTasks
@@ -181,9 +246,14 @@ end
 def outputSchedule
  puts "Name This file \n"
  fileName = gets.strip.delete(' ');
-outFile = File.new("#{fileName}.txt", "w")
- outString = @taskArray.each { |info| outFile.puts "Task Owner: #{info.name} \n Task Information #{info.task} \n Due Date:  #{info.dueDate} \n\n\n"  }
-outFile.close
+ outFile = File.new("#{fileName}.txt", "w")
+ outString = @taskArray.each { |info| outFile.puts "Task Owner: #{info.name} \n Task Information #{info.task} \n Due Date:  #{info.dueDate} \n\n\n"
+ info.commentArray.each { |comment|
+   outFile.puts "Comment: #{comment.comment} \n\n" 
+ }
+  }
+ outFile.close
+ startDialogue
 end
 
 
