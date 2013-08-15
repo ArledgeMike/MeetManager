@@ -5,24 +5,20 @@ class MeetManager
 attr_accessor :taskArray
 
 def initialize	
- # prompt user at the very start of program init
- puts "Welcome to the Meet Manager \n Type HELP to see a list of Commands \n"
  @taskArray = []
+ 50.times { print "*" }
+ print "\nWelcome to the Meet Manager \n Type 'HELP' to see a list of Commands \n>"
  command = gets.strip.downcase.delete(' ')
- #puts command
  decide(command) 
 end
 
 def startDialogue
- # Reset Function should be at the end of every management function
- puts "What can I do for you? \n Type HELP to see a list of Commands \n"
+ print "\nWhat can I do for you? \n Type 'HELP' to see a list of Commands \n>"
  command = gets.strip.downcase.delete(' ')
- #puts command
  decide(command)
 end
 
 def decide(commandString)
-  # Case that controls all decision making from startDialogue
  command = commandString
  case 
   when command == "help"
@@ -113,31 +109,31 @@ def decide(commandString)
     end
     
  else 
-  puts "That is not a command. You are just making things up."
+  puts "Quit mishandling the meet."
   startDialogue
  end
 end
 
 def displayHelp
- puts "To add a task type -- Add A Task \n 
-       To display all tasks type -- Display All Tasks \n
-       To get all the info for a task type -- Inspect A Task \n 
-       To change the owner of a task type -- Change A Task Owner \n
-       To change a task due date type -- Change A Task Due Date \n 
-       To mark a task as complete type -- Complete A Task \n
-       To remove a task from the list type -- Remove A Task \n
-       To remove all of the tasks from the list type -- Remove All Tasks \n
-       To add a comment to a task type -- Add A Commnet \n
-       To output the schedule to a file type -- Output Schedule"
+ puts "\n To add a task type -- 'Add A Task' \n 
+ To display all tasks type -- 'Display All Tasks' \n
+ To get all the info for a task type -- 'Inspect A Task' \n 
+ To change the owner of a task type -- 'Change A Task Owner' \n
+ To change a task due date type -- 'Change A Task Due Date' \n 
+ To mark a task as complete type -- 'Complete A Task' \n
+ To remove a task from the list type -- 'Remove A Task' \n
+ To remove all of the tasks from the list type -- 'Remove All Tasks' \n
+ To add a comment to a task type -- 'Add A Commnet' \n
+ To output the schedule to a file type -- 'Output Schedule' \n\n"
  startDialogue
 end
 
 def addATask
- puts "Add A Task Owner\n"
- taskOwner = gets.strip
- puts "Add A Task\n"
+ print "Add A Task Owner\n>"
+ taskOwner = gets.strip.split(" ").map {|w| w.capitalize }.join(" ")
+ print "Add A Task\n>"
  toDo = gets.strip
- puts "Add A Due Date\n"
+ print "Add A Due Date\n>"
  due = gets.strip
  aTask = MeetTask.new(@taskCount,taskOwner, toDo, due)
  @taskArray.push(aTask)
@@ -145,22 +141,21 @@ def addATask
 end
 
 def displayAllTasks
-puts @taskArray 
-@taskArray.each { |task| 
-  puts "\n Task Number #{@taskArray.index(task)+1} \n Name: #{task.name}\n Task: #{task.task} \n Due Date: #{task.dueDate} \n Complete:   #{task.completed} \n "
+ @taskArray.each { |task| 
+  puts "\n Task Number: #{@taskArray.index(task)+1} \n Created At: #{task.createdAt} \n Task Owner: #{task.name}\n Task: #{task.task} \n Due Date: #{task.dueDate} \n Complete:   #{task.completed} \n Number of Comments: #{task.commentArray.size}  "
   task.commentArray.each { |comment|
-    puts "Comment: #{comment.comment} \n\n" 
+    puts "\n Commentor: #{comment.commentorName} \n Created At: #{comment.time} \n Comment: #{comment.comment} \n" 
   }
-}
+ }
  startDialogue
 end
 
 def inspectATask
  totalTasks = @taskArray.length
- puts "There Are #{totalTasks} Total Tasks. Which Would You Like To Know More About\n"
+ print "There Are #{totalTasks} Total Tasks. Which Would You Like To Know More About\n>"
  taskNum = (gets.strip.to_i)
- if (taskNum == 0)
-  puts "You did that wrong. Enter the number of the task you want to inspect"
+ if taskNum == 0 || taskNum > totalTasks 
+  puts "That is not a valid number, you should check your cuts of meet before you step up to the counter."
   inspectATask
  end
   taskArrayIndex = taskNum - 1
@@ -170,10 +165,10 @@ end
 
 def changeATaskOwner
  totalTasks = @taskArray.length
- puts "There Are #{totalTasks} Total Tasks. Which Task Would You Like To Reassign?\n"
+ print "There Are #{totalTasks} Total Tasks. Which Task Would You Like To Reassign?\n>"
  taskNum = (gets.strip.to_i)
- if (taskNum == 0)
-  puts "That is not a valid number"
+ if taskNum == 0 || taskNum > totalTasks 
+  puts "That is not a valid number, if you are looking for veggies they are not here."
   changeATaskOwner
  end
  taskArrayIndex = taskNum - 1
@@ -181,12 +176,12 @@ def changeATaskOwner
  startDialogue
 end
 
-def chanageATaskDueDate
+def changeATaskDueDate
  totalTasks = @taskArray.length
- puts "There Are #{totalTasks} Total Tasks. Which Tasks Due Date Do You Want To Change?\n"
+ print "There Are #{totalTasks} Total Tasks. Which Tasks Due Date Do You Want To Change?\n>"
  taskNum = (gets.strip.to_i)
- if (taskNumer == 0)
-  puts "That is not a valid number"
+ if taskNum == 0 || taskNum > totalTasks 
+  puts "That is not a valid number, look I don't got all day is it gonna be chops, or loins?"
   changeATaskDueDate
  end
  taskArrayIndex = taskNum - 1
@@ -196,39 +191,37 @@ end
 
 def completeATask
  totalTasks = @taskArray.length
- puts "There Are #{totalTasks} Total Tasks. Type In The Number Of The Task To Complete?\n"
+ print "There Are #{totalTasks} Total Tasks. Type In The Number Of The Task To Complete?\n>"
  taskNum = (gets.strip.to_i)
- if (taskNum == 0)
- puts "Type in the number of the task you want to mark as complete"
+ if taskNum == 0 || taskNum > totalTasks 
+ puts "That is not a valid number, I want to get you out of here too what meet do you want?"
  completeATask
  end
  taskArrayIndex = taskNum - 1
  @taskArray[taskArrayIndex].markComplete
- puts "Task number #{taskNum} is completed" 
  startDialogue
 end
 
 def removeATask
  totalTasks = @taskArray.length
- puts "There Are #{totalTasks} Total Tasks. Type In The Number Of The Task To Delete?\n"
+ print "There Are #{totalTasks} Total Tasks. Type In The Number Of The Task To Delete?\n>"
  taskNum = (gets.strip.to_i)
- if (taskNum == 0) 
-  puts "That is not a number try again"
+ if taskNum == 0 || taskNum > totalTasks 
+  puts "That is not a valid number, what do you want to order?"
   removeATask
  end
   taskArrayIndex = taskNum - 1
   @taskArray.delete_at(taskArrayIndex)
-  puts "Task number #{taskNum} is deleted"
-  @taskCount = @taskCount -1
+  puts "Task number #{taskNum} is deleted!"
   startDialogue
 end
 
 def addAComment
  totalTasks = @taskArray.length
- puts "There Are #{totalTasks} Total Tasks. Type In The Number Of The Task To Add A Comment?\n"
+ print "There Are #{totalTasks} Total Tasks. Type In The Number Of The Task To Add A Comment?\n>"
  taskNum = (gets.strip.to_i)
- if (taskNum == 0) 
-  puts "That is not a number try again"
+ if taskNum == 0 || taskNum > totalTasks 
+  puts "That is not a valid number, we got lamb chops we got pork chops we don't got that chop"
   addAComment
  end
   taskArrayIndex = taskNum - 1
@@ -239,22 +232,24 @@ end
 def removeAllTasks
  @taskArray.clear
  @taskCount = 1
- puts "All Tasks Removed"
+ puts "All Tasks Removed! Make sure you stock up on more meet."
  startDialogue
 end
 
 def outputSchedule
- puts "Name This file \n"
+ print "Name This file \n>"
  fileName = gets.strip.delete(' ');
  outFile = File.new("#{fileName}.txt", "w")
- outString = @taskArray.each { |info| outFile.puts "Task Owner: #{info.name} \n Task Information #{info.task} \n Due Date:  #{info.dueDate} \n\n\n"
+ outString = @taskArray.each { |info| outFile.puts "\nTask Number: #{@taskArray.index(info)+1} \nTask Owner: #{info.name}\nCreated at: #{info.createdAt} \nTask: #{info.task} \nDue Date: #{info.dueDate} \nComplete: #{info.completed} \nNumber of Comments: #{info.commentArray.size}\nComment:"
  info.commentArray.each { |comment|
-   outFile.puts "Comment: #{comment.comment} \n\n" 
- }
+   outFile.puts "\nCommentor: #{comment.commentorName} \nCreated At: #{comment.time} \nComment: #{comment.comment} \n\n" 
   }
+ }
  outFile.close
  startDialogue
 end
 
 
 end
+
+porkChop = MeetManager.new
