@@ -1,6 +1,6 @@
 MeetManager
 ===========
-
+<img src ="https://raw.github.com/ArledgeMike/MeetManager/f0ac4f0a819e77a98c8c4395768f9e9cc1dcbe38/images/meettitle.png" />
 <h2>Ruby Command Line Task Manager<h2> <p>Version 1-porkchop</P>
 
 <p>This is a command line task manager built in Ruby. Should be straight forward at the prompt. </p>
