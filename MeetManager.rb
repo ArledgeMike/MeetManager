@@ -43,7 +43,7 @@ def decide(commandString)
  
   when command == "addacomment" && @totalTasks > 0 then addAComment
  
-  when command == "outputschedule" && @totalTasks > 0 the outputSchedule
+  when command == "outputschedule" && @totalTasks > 0 then outputSchedule
     
   else 
     if@totalTasks == 0
