@@ -19,98 +19,40 @@ def startDialogue
 end
 
 def decide(commandString)
+ @totalTasks = @taskArray.length
+
  command = commandString
  case 
-  when command == "help"
-  displayHelp
+  when command == "help" then displayHelp
 
-  when command == "addatask"
-  addATask
+  when command == "addatask" then addATask
   
-  when command == "displayalltasks"
-    totalTasks = @taskArray.length
-    if totalTasks == 0
-      puts "You need to add a task first"
-      startDialogue
-    else
-    displayAllTasks
-    end
+  when command == "displayalltasks" && @totalTasks > 0 then displayAllTasks
   
-  when command == "inspectatask"
-    totalTasks = @taskArray.length
-    if totalTasks == 0
-      puts "You need to add a task first"
-      startDialogue
-    else
-    inspectATask
-    end
+  when command == "inspectatask" && @totalTasks > 0 then inspectATask
   
-  when command  == "changeataskowner"
-    totalTasks = @taskArray.length
-    if totalTasks == 0
-      puts "You need to add a task first"
-      startDialogue
-    else
-    changeATaskOwner
-    end
+  when command  == "changeataskowner"  && @totalTasks > 0 then changeATaskOwner
   
-  when command == "changeataskduedate"
-    totalTasks = @taskArray.length
-    if totalTasks == 0
-      puts "You need to add a task first"
-      startDialogue
-    else
-    changeATaskDueDate
-    end
+  when command == "changeataskduedate" && @totalTasks > 0 then changeATaskDueDate
   
-  when command == "completeatask"
-    totalTasks = @taskArray.length
-    if totalTasks == 0
-      puts "You need to add a task first"
-      startDialogue
-    else
-    completeATask
-    end
+  when command == "completeatask" && @totalTasks > 0 then completeATask
   
-  when command == "removeatask"
-    totalTasks = @taskArray.length
-    if totalTasks == 0
-      puts "You need to add a task first"
-      startDialogue
-    else
-    removeATask
-    end
-  
-  when command == "removealltasks"
-    totalTasks = @taskArray.length
-    if totalTasks == 0
-      puts "You need to add a task first"
-      startDialogue
-    else
-    removeAllTasks
-    end
-  
-  when command == "addacomment"
-    totalTasks = @taskArray.length
-    if totalTasks == 0
-      puts "You need to add a task first"
-      startDialogue
-    else
-    addAComment
-    end
-  
-  when command == "outputschedule"
-    totalTasks = @taskArray.length
-    if totalTasks == 0
-      puts "You need to add a task first"
-      startDialogue
-    else
-    outputSchedule
-    end
+  when command == "removeatask" && @totalTasks > 0 then removeATask
+ 
+  when command == "removealltasks" && @totalTasks > 0 then removeAllTasks
+ 
+  when command == "addacomment" && @totalTasks > 0 then addAComment
+ 
+  when command == "outputschedule" && @totalTasks > 0 the outputSchedule
     
- else 
-  puts "Quit mishandling the meet."
-  startDialogue
+  else 
+    if@totalTasks == 0
+      puts "You Need To Add A Task First!"
+      startDialogue 
+   else
+      puts "Quit mishandling the meet."
+      startDialogue
+   end
  end
 end
 
@@ -248,8 +190,7 @@ def outputSchedule
  outFile.close
  startDialogue
 end
-
-
 end
+
 
 porkChop = MeetManager.new
