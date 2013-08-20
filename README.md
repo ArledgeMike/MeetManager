@@ -16,4 +16,4 @@ DEPLOY OPERATION
 
 </ul>
 
-<p>MeetManager is a Ruby Command Line CRUD application. Create a list of tasks for your day. Mark tasks complete as you go through your day. When you are finished with a task just delete and move on. If you need to take Meet Manager with you just print out your list to a text file and drop it on your phone. All this in one spot.</p>
+<p>MeetManager is a Ruby Command Line CRUD application. Create a list of tasks for your day. Mark tasks complete as you go through your day. When you are finished with a task just delete and move on. If you need to take Meet Manager with you just print out your list to a text file and drop it on your phone. All this in one spot. If you have any requests please get in touch as this is a work in progress.</p>
