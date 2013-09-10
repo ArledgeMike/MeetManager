@@ -1,9 +1,7 @@
 MeetManager
 ===========
-<img src ="https://raw.github.com/ArledgeMike/MeetManager/f0ac4f0a819e77a98c8c4395768f9e9cc1dcbe38/images/meettitle.png" />
-<h2>Ruby Command Line Task Manager<h2> <p>Version 1.01 - porkchop</P>
-
-<p>This is a command line task manager built in Ruby. Should be straight forward at the prompt. </p>
+<img src ="https://raw.github.com/ArledgeMike/MeetManager/master/images/v102_porkchop.jpg" />
+<h2>Ruby Command Line Task Manager<h2> <p>Version 1.02 - porkchop</P>
 
 <ul>
 DEPLOY OPERATION
@@ -16,4 +14,13 @@ DEPLOY OPERATION
 
 </ul>
 
-<p>MeetManager is a Ruby Command Line CRUD application. Create a list of tasks for your day. Mark tasks complete as you go through your day. When you are finished with a task just delete and move on. If you need to take Meet Manager with you just print out your list to a text file and drop it on your phone. All this in one spot. If you have any requests please get in touch as this is a work in progress.</p>
+<p>MeetManager is a Ruby Command Line CRUD application. Create a list of tasks for your day. Mark tasks complete as you go through your day. When you are finished with a task just delete and move on. If you need to take Meet Manager with you just print out your list to a text file and drop it on your phone. All this in one spot. If you have any requests please get in touch
+
+
+<h3>Version 1.02 - porkchop</h3>
+<p>Changes</p>
+<ul>
+<li>Duplicate a Meet
+<li>CRUD for comments added</li>
+<li>Started seperation of interface messages</li>
+<li>Smarter faster decision making and cleaner code</li>
